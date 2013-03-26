@@ -1,3 +1,5 @@
 Run by:
 
 python listSorting.py input_file output_file
+
+PS: input_file should only contain one line of strings separated by space
