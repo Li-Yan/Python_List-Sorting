@@ -25,7 +25,7 @@ Separate(ss, w_or_n, word, number)
 QuickSort_Optimized(word, 0, len(word) - 1)
 QuickSort_Optimized(number, 0, len(number) - 1)
 '''
-#Version that does not deal with duplicate words
+#This version that does not optimize for duplicate words, only for test
 QuickSort(word, 0, len(word) - 1)
 QuickSort(number, 0, len(number) - 1)
 '''
