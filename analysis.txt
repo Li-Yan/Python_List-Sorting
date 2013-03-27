@@ -1,0 +1,66 @@
+Section 1: My algorithm
+I choose Quick Sort for this problem (with optimization to deal with duplicate words):
+	1) Refine all strings, eliminate invalid characters.
+	2) Separate all strings into words (string) and numbers (integer) and remember their positions.
+	3) Sort words (string) and numbers (integer) respectively.
+	4) Combine sorted words (string) and sorted numbers (integer) together.
+
+Time complexity is O(n * log(n)) (the explanation follow the above order):
+	1) There are n strings with length <= 100, total time: O(100 * n) = O(n).
+	2) Separation step just copy strings which is O(n).
+	3) Quick Sort for both two arrays is: O(n * log(n)) + O(n * log(n)) = O(n * log(n)).
+	4) Combination step also copy strings with is O(n).
+	Total time complexity is: O(n) + O(n) + O(n * log(n)) + O(n) = O(n * log(n)).
+
+Space complexity is O(n):
+	There are constant number of stringLists, each lists contain n strings with length <= 100.
+	So space complexity is: O(C * 100 * n) = O(n)
+
+Detail on my Quick Sort:
+	- Worst case for Quick Sort is O(n^2).
+	- I get three elements from the sub-array (the first, the middle and the last).
+	- I choose the median of this three element and use this element to divide the sub-array.
+	- This will greatly prevent the worst case of Quick Sort.
+	- Moreover my function quicksort.QuickSort_Optimized() deal with dulplicate words efficiently.
+	- Please check Section 3 for detail in solving dulplicate words problems.
+
+Section 2: Other algorithm
+2.1 Compare based algorithms:
+Proved by Decision Tree, compare based algorithm cannot be better than O(n * log(n)).
+	- Bubble Sort is O(n^2).
+	- Selection Sort is O(n^2).
+	- Heap Sort is O(n * log(n)) and it is stable, which means it is theoretically better than Quick Sort. (It is stable, so O(n * log(n)) even with duplicate words)
+
+2.2 Non-Compare algorithms: Radix Sort
+Radix Sort:
+	- Assume the strings have length of l, characters of the strings are from domain D. 
+	- Then time complexity for Radix Sort is: O(l * (n + |D|))
+	- Here |D| for word is 2 * 26 = 52 and |D| for number is 10. So we can consider |D| as a small constant.
+	- Then O(l * (n + |D|)) = O(l * n)
+	- Radix Sort performs good when length is small.
+
+2.3 Compare Quick Sort and Radix Sort in this scenario:
+	- n <= 100000, then log(n) = 16.6 < 17
+	- l <= 100.
+	- In this scenario, Quick Sort O(n * log(n)) is better then Radix Sort O(l * n).
+	- But this is "not" accurate because I suppose string or integer compare is done in O(1) in python.
+	- If string or integer compare is not O(1), Quick Sort is not necessarily better than Radix Sort.
+
+Section 3: Duplicate words analysis
+My Quick Sort deal with duplicate condition.
+For normal Quick Sort, if all element is the same, say [1, 1, 1, 1, ...], time complexity is O(n^2) because each time only divide one element.
+
+My Quick Sort is improved in this way:
+	- Using two points p1, p2 when dividing the sub-arrays:
+	- A[start] .. A[p1] .. A[p2] .. A[end - 1], A[end]
+	- A[start .. p1] < A[end]; A[p1 + 1 .. p2] = A[end], A[p2 + 1 .. end -1] > A[end]
+	- Exchange A[p2 + 1] and A[end]
+	- The recursion can be: Quicksort(A, start, p1); Quicksort(A, p2 + 2, end)
+	- This algorithm makes duplicate condition the same as distinct condition.
+
+Other Algorithm for duplicate words:
+	- Bubble Sort is stable: O(n^2).
+	- Selection Sort is stable: O(n^2).
+	- Heap Sort is stable: O(n * log(n)). Heap Sort performs very well among compare based sorts.
+	- Radix Sort is stable: O(l * (n + |D|))
+

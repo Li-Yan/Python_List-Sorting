@@ -22,8 +22,13 @@ number = list()
 
 #separate word and number in advance, sort both lists, rearrange them
 Separate(ss, w_or_n, word, number)
+QuickSort_Optimized(word, 0, len(word) - 1)
+QuickSort_Optimized(number, 0, len(number) - 1)
+'''
+#Version that does not deal with duplicate words
 QuickSort(word, 0, len(word) - 1)
 QuickSort(number, 0, len(number) - 1)
+'''
 outList = Rearrange(w_or_n, word, number)
 
 #Output
